@@ -1,0 +1,524 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #7a9ad4;
+  --title: rgba(255, 255, 195, 0.88);
+  --card: #eff3c5;
+  --card-size: 60px;
+  --icon-size: 50px;
+  --gap-x: 31px;
+  --gap-y: 38px;
+  --radius-frame: 9px;
+  --radius-card: 10px;
+  --font-title: "Jersey 10", "Press Start 2P", monospace;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: 24px 16px;
+  background: #5f7fb8;
+  font-family: var(--font-ui);
+}
+
+.wallet {
+  width: min(100%, 444px);
+  padding: 17px 55px 62px;
+  background: var(--bg);
+  border-radius: var(--radius-frame);
+  overflow: hidden;
+}
+
+.wallet__title {
+  font-family: var(--font-title);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--title);
+  text-align: center;
+  margin: 0 0 16px;
+  word-break: break-word;
+}
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.user-bar__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--title);
+  flex-shrink: 0;
+}
+
+.user-bar__select {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  color: #2c3e50;
+  background: var(--card);
+  cursor: pointer;
+}
+
+.user-bar__select:focus {
+  outline: 2px solid var(--title);
+  outline-offset: 2px;
+}
+
+.user-bar__btn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #2c3e50;
+  background: var(--card);
+  cursor: pointer;
+}
+
+.user-bar__btn:hover {
+  filter: brightness(1.05);
+}
+
+.user-bar__btn:focus-visible {
+  outline: 2px solid var(--title);
+  outline-offset: 2px;
+}
+
+.wallet__grid {
+  display: grid;
+  grid-template-columns: repeat(4, var(--card-size));
+  column-gap: var(--gap-x);
+  row-gap: var(--gap-y);
+  justify-content: center;
+}
+
+.service-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: var(--card-size);
+  height: var(--card-size);
+  padding: 5px 0 0;
+  border: none;
+  border-radius: var(--radius-card);
+  background: var(--card);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.service-card:focus-visible {
+  outline: 3px solid var(--title);
+  outline-offset: 3px;
+}
+
+/* Icon viewport — matches Figma 50×50 (or per-icon overrides) */
+.service-card__frame {
+  position: relative;
+  display: block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  overflow: hidden;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.service-card__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Row 1 */
+.service-card--google {
+  padding-top: 5px;
+}
+
+.service-card--google .service-card__frame {
+  width: 49px;
+  border-radius: 25px;
+}
+
+.service-card--gmail .service-card__frame {
+  border-radius: 15px;
+}
+
+.service-card--microsoft .service-card__frame {
+  border-radius: 10px;
+}
+
+.service-card--github .service-card__frame {
+  border-radius: 15px;
+  background: #fff;
+}
+
+/* Row 2 */
+.service-card--netflix .service-card__frame {
+  border-radius: 0;
+}
+
+.service-card--prime .service-card__frame {
+  border-radius: 10px;
+}
+
+.service-card--prime .service-card__icon {
+  position: absolute;
+  width: 138.89%;
+  height: 138.89%;
+  left: -19.44%;
+  top: -19.44%;
+}
+
+.service-card--steam .service-card__frame {
+  border-radius: 15px;
+}
+
+.service-card--crunchyroll {
+  padding-top: 6px;
+}
+
+.service-card--crunchyroll .service-card__frame {
+  width: 47px;
+  height: 47px;
+  border-radius: 10px;
+}
+
+.service-card--crunchyroll .service-card__icon {
+  position: absolute;
+  height: 100%;
+  width: 151.52%;
+  left: -27.27%;
+  top: 0;
+}
+
+/* Row 3 — LeetCode sits slightly lower in its cell per Figma */
+.service-card--leetcode {
+  padding-top: 10px;
+}
+
+.service-card--leetcode .service-card__frame {
+  margin-left: -1px;
+}
+
+.service-card--pc .service-card__frame {
+  border-radius: 15px;
+}
+
+.service-card--instagram .service-card__frame {
+  border-radius: 15px;
+}
+
+.service-card--instagram .service-card__icon {
+  position: absolute;
+  width: 118.2%;
+  height: 118.86%;
+  left: -9.03%;
+  top: -9.35%;
+}
+
+/* Row 4 — cropped logos like Figma bottom row */
+.service-card--rockstar .service-card__frame {
+  border-radius: 15px;
+}
+
+.service-card--rockstar .service-card__icon {
+  position: absolute;
+  height: 100%;
+  width: 178.57%;
+  left: -39.29%;
+  top: 0;
+}
+
+.service-card--snapchat .service-card__frame {
+  border-radius: 10px;
+}
+
+.service-card--snapchat .service-card__icon {
+  position: absolute;
+  width: 182.93%;
+  height: 102.44%;
+  left: -41.65%;
+  top: -1.09%;
+}
+
+.service-card--flipkart .service-card__frame {
+  border-radius: 10px;
+}
+
+.service-card--flipkart .service-card__icon {
+  position: absolute;
+  width: 131.2%;
+  height: 131.58%;
+  left: -16.03%;
+  top: -15.2%;
+}
+
+.service-card--valorant .service-card__frame {
+  border-radius: 0;
+}
+
+.service-card--saved::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4a7c59;
+  box-shadow: 0 0 0 2px var(--card);
+}
+
+.modal {
+  width: min(92vw, 400px);
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: #f8f9e8;
+  color: #2c3e50;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modal::backdrop {
+  background: rgba(44, 62, 80, 0.55);
+}
+
+.modal__form {
+  padding: 20px;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.modal__header--plain {
+  margin-bottom: 12px;
+}
+
+.modal__heading {
+  min-width: 0;
+}
+
+.modal__icon {
+  border-radius: 10px;
+  object-fit: cover;
+  background: var(--card);
+  flex-shrink: 0;
+}
+
+.modal__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal__user {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5a6a7a;
+}
+
+.modal--users {
+  width: min(92vw, 420px);
+}
+
+.user-list {
+  list-style: none;
+  margin: 0 0 16px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.user-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.user-list__item:last-child {
+  border-bottom: none;
+}
+
+.user-list__name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.user-list__active {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #2c5282;
+  background: #bee3f8;
+}
+
+.user-list__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+}
+
+.btn--sm {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}
+
+.btn--danger {
+  color: #b42318;
+}
+
+.field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.field__row {
+  display: flex;
+  gap: 8px;
+}
+
+.field__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #c5cdd8;
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.field__input:focus {
+  outline: 2px solid var(--bg);
+  border-color: var(--bg);
+}
+
+.field__input--area {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.modal__actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--bg);
+  color: var(--title);
+}
+
+.btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: #4a5568;
+}
+
+.btn--ghost:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+#delete-credential {
+  color: #b42318;
+}
+
+@media (max-width: 380px) {
+  .wallet {
+    padding-inline: 20px;
+  }
+
+  .wallet__title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .wallet__grid {
+    --card-size: 52px;
+    --icon-size: 42px;
+    --gap-x: 18px;
+    --gap-y: 22px;
+  }
+
+  .service-card--google .service-card__frame {
+    width: 42px;
+  }
+
+  .service-card--crunchyroll .service-card__frame {
+    width: 40px;
+    height: 40px;
+  }
+}

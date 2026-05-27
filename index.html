@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Wallet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="wallet" aria-label="Password Wallet">
+      <h1 class="wallet__title">PASSWORD&nbsp;&nbsp;WALLET</h1>
+
+      <section class="user-bar" aria-label="Wallet users">
+        <label class="user-bar__label" for="user-select">User</label>
+        <select class="user-bar__select" id="user-select" aria-label="Select user"></select>
+        <button type="button" class="user-bar__btn" id="add-user-btn" title="Add user">+</button>
+        <button type="button" class="user-bar__btn" id="manage-users-btn" title="Manage users">⋯</button>
+      </section>
+
+      <div class="wallet__grid" id="service-grid" role="list">
+        <button type="button" class="service-card service-card--google" data-service-id="google" role="listitem" aria-label="Google credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/google.jpg" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--gmail" data-service-id="gmail" role="listitem" aria-label="Gmail credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/gmail.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--microsoft" data-service-id="microsoft" role="listitem" aria-label="Microsoft credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/microsoft.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--github" data-service-id="github" role="listitem" aria-label="GitHub credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/github.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--netflix" data-service-id="netflix" role="listitem" aria-label="Netflix credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/netflix.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--prime" data-service-id="prime" role="listitem" aria-label="Prime Video credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/prime.jpg" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--steam" data-service-id="steam" role="listitem" aria-label="Steam credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/steam.jpg" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--crunchyroll" data-service-id="crunchyroll" role="listitem" aria-label="Crunchyroll credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/crunchyroll.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--leetcode" data-service-id="leetcode" role="listitem" aria-label="LeetCode credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/leetcode.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--pc" data-service-id="pc" role="listitem" aria-label="PC credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/pc.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--facebook" data-service-id="facebook" role="listitem" aria-label="Facebook credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/facebook.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--instagram" data-service-id="instagram" role="listitem" aria-label="Instagram credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/instagram.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--rockstar" data-service-id="rockstar" role="listitem" aria-label="Rockstar credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/rockstar.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--snapchat" data-service-id="snapchat" role="listitem" aria-label="Snapchat credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/snapchat.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--flipkart" data-service-id="flipkart" role="listitem" aria-label="Flipkart credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/flipkart.png" alt="" /></span>
+        </button>
+        <button type="button" class="service-card service-card--valorant" data-service-id="valorant" role="listitem" aria-label="Valorant credentials">
+          <span class="service-card__frame"><img class="service-card__icon" src="./assets/valorant.png" alt="" /></span>
+        </button>
+      </div>
+    </main>
+
+    <dialog class="modal" id="credential-modal" aria-labelledby="modal-title">
+      <form method="dialog" class="modal__form" id="credential-form">
+        <header class="modal__header">
+          <img class="modal__icon" id="modal-icon" alt="" width="48" height="48" />
+          <div class="modal__heading">
+            <h2 class="modal__title" id="modal-title"></h2>
+            <p class="modal__user" id="modal-user-label"></p>
+          </div>
+        </header>
+
+        <label class="field">
+          <span class="field__label">Username / Email</span>
+          <input
+            class="field__input"
+            type="text"
+            id="credential-username"
+            autocomplete="username"
+            placeholder="you@example.com"
+          />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Password</span>
+          <div class="field__row">
+            <input
+              class="field__input"
+              type="password"
+              id="credential-password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+            />
+            <button
+              type="button"
+              class="btn btn--ghost"
+              id="toggle-password"
+              aria-label="Show password"
+            >
+              Show
+            </button>
+          </div>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Notes</span>
+          <textarea
+            class="field__input field__input--area"
+            id="credential-notes"
+            rows="3"
+            placeholder="Optional notes"
+          ></textarea>
+        </label>
+
+        <footer class="modal__actions">
+          <button type="button" class="btn btn--ghost" id="delete-credential">
+            Delete
+          </button>
+          <div class="modal__actions-right">
+            <button type="button" class="btn btn--ghost" id="cancel-modal">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn--primary">Save</button>
+          </div>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog class="modal modal--users" id="users-modal" aria-labelledby="users-modal-title">
+      <div class="modal__form">
+        <header class="modal__header modal__header--plain">
+          <h2 class="modal__title" id="users-modal-title">Manage users</h2>
+        </header>
+        <ul class="user-list" id="user-list" role="list"></ul>
+        <footer class="modal__actions">
+          <button type="button" class="btn btn--primary" id="close-users-modal">Done</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
