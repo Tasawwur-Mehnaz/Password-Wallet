@@ -24,54 +24,105 @@
       </section>
 
       <div class="wallet__grid" id="service-grid" role="list">
-        <button type="button" class="service-card service-card--google" data-service-id="google" role="listitem" aria-label="Google credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/google.jpg" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--gmail" data-service-id="gmail" role="listitem" aria-label="Gmail credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/gmail.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--microsoft" data-service-id="microsoft" role="listitem" aria-label="Microsoft credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/microsoft.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--github" data-service-id="github" role="listitem" aria-label="GitHub credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/github.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--netflix" data-service-id="netflix" role="listitem" aria-label="Netflix credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/netflix.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--prime" data-service-id="prime" role="listitem" aria-label="Prime Video credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/prime.jpg" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--steam" data-service-id="steam" role="listitem" aria-label="Steam credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/steam.jpg" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--crunchyroll" data-service-id="crunchyroll" role="listitem" aria-label="Crunchyroll credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/crunchyroll.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--leetcode" data-service-id="leetcode" role="listitem" aria-label="LeetCode credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/leetcode.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--pc" data-service-id="pc" role="listitem" aria-label="PC credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/pc.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--facebook" data-service-id="facebook" role="listitem" aria-label="Facebook credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/facebook.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--instagram" data-service-id="instagram" role="listitem" aria-label="Instagram credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/instagram.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--rockstar" data-service-id="rockstar" role="listitem" aria-label="Rockstar credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/rockstar.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--snapchat" data-service-id="snapchat" role="listitem" aria-label="Snapchat credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/snapchat.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--flipkart" data-service-id="flipkart" role="listitem" aria-label="Flipkart credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/flipkart.png" alt="" /></span>
-        </button>
-        <button type="button" class="service-card service-card--valorant" data-service-id="valorant" role="listitem" aria-label="Valorant credentials">
-          <span class="service-card__frame"><img class="service-card__icon" src="./assets/valorant.png" alt="" /></span>
-        </button>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--google" data-service-id="google" aria-label="Google credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/google.jpg" alt="" /></span>
+          </button>
+          <span class="service-item__label">Google</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--gmail" data-service-id="gmail" aria-label="Gmail credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/gmail.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Gmail</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--microsoft" data-service-id="microsoft" aria-label="Microsoft credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/microsoft.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Microsoft</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--github" data-service-id="github" aria-label="Github credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/github.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Github</span>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--netflix" data-service-id="netflix" aria-label="Netflix credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/netflix.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Netflix</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--prime" data-service-id="prime" aria-label="Prime credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/prime.jpg" alt="" /></span>
+          </button>
+          <span class="service-item__label">Prime</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--steam" data-service-id="steam" aria-label="Steam credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/steam.jpg" alt="" /></span>
+          </button>
+          <span class="service-item__label">Steam</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--crunchyroll" data-service-id="crunchyroll" aria-label="Crunchyroll credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/crunchyroll.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Crunchyroll</span>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--leetcode" data-service-id="leetcode" aria-label="Leetcode credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/leetcode.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Leetcode</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--pc" data-service-id="pc" aria-label="PC credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/pc.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">PC</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--facebook" data-service-id="facebook" aria-label="Facebook credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/facebook.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Facebook</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--instagram" data-service-id="instagram" aria-label="Instagram credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/instagram.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Instagram</span>
+        </div>
+
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--rockstar" data-service-id="rockstar" aria-label="IRCTC credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/rockstar.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">IRCTC</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--snapchat" data-service-id="snapchat" aria-label="Snapchat credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/snapchat.png" alt="" /></span>
+          </button>
+          <span class="service-item__label service-item__label--wrap">Snapchat</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--flipkart" data-service-id="flipkart" aria-label="Flipkart credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/flipkart.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Flipkart</span>
+        </div>
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--valorant" data-service-id="valorant" aria-label="Valorant credentials">
+            <span class="service-card__frame"><img class="service-card__icon" src="./assets/valorant.png" alt="" /></span>
+          </button>
+          <span class="service-item__label">Valorant</span>
+        </div>
       </div>
     </main>
 

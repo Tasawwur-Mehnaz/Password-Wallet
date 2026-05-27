@@ -123,6 +123,33 @@ body {
   justify-content: center;
 }
 
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-item__label {
+  width: 74px;
+  max-width: 74px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  color: rgba(255, 255, 195, 0.92);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.service-item__label--wrap {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
 .service-card {
   position: relative;
   display: flex;
