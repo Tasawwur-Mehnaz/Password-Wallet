@@ -2,13 +2,26 @@
 
 A simple password wallet UI built from the [Figma design](https://www.figma.com/design/w45tZVbgZUE5oBgVAz5UmF/Password-wallet?node-id=1-2).
 
-## Run locally
+## Run locally (browser)
 
 Open `index.html` in a browser, or serve the folder:
 
 ```bash
 npx --yes serve .
 ```
+
+## Build Android APK
+
+The app is set up with **Capacitor** for Android. See **[BUILD-APK.md](BUILD-APK.md)** for full steps.
+
+Quick build (requires [Android Studio](https://developer.android.com/studio) + SDK):
+
+```powershell
+npm install
+npm run android:build
+```
+
+Output: `Password-Wallet-debug.apk` in the project folder.
 
 ## Features
 

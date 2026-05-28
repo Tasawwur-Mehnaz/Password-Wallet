@@ -1,5 +1,6 @@
 const STORAGE_KEY = "password-wallet-data";
 const LEGACY_KEY = "password-wallet-credentials";
+const DEFAULT_CUSTOM_ICON = "./assets/default-app.png";
 
 const services = {
   google: { name: "Google", icon: "./assets/google.jpg" },
@@ -20,12 +21,17 @@ const services = {
   valorant: { name: "Valorant", icon: "./assets/valorant.png" },
 };
 
-const cards = document.querySelectorAll(".service-card");
+const grid = document.getElementById("service-grid");
 const userSelect = document.getElementById("user-select");
 const addUserBtn = document.getElementById("add-user-btn");
 const manageUsersBtn = document.getElementById("manage-users-btn");
 const modal = document.getElementById("credential-modal");
 const usersModal = document.getElementById("users-modal");
+const addServiceModal = document.getElementById("add-service-modal");
+const addServiceForm = document.getElementById("add-service-form");
+const newServiceNameInput = document.getElementById("new-service-name");
+const cancelAddServiceBtn = document.getElementById("cancel-add-service");
+const appList = document.getElementById("app-list");
 const userList = document.getElementById("user-list");
 const closeUsersModalBtn = document.getElementById("close-users-modal");
 const form = document.getElementById("credential-form");
@@ -51,6 +57,8 @@ function createDefaultStore() {
     activeUserId: id,
     users: [{ id, name: "User 1" }],
     credentials: { [id]: {} },
+    customServices: [],
+    hiddenServiceIds: [],
   };
 }
 
@@ -102,7 +110,9 @@ function normalizeStore(data) {
     credentials[u.id] = data.credentials[u.id] ?? {};
   });
 
-  return { activeUserId, users, credentials };
+  const customServices = Array.isArray(data.customServices) ? data.customServices : [];
+  const hiddenServiceIds = Array.isArray(data.hiddenServiceIds) ? data.hiddenServiceIds : [];
+  return { activeUserId, users, credentials, customServices, hiddenServiceIds };
 }
 
 function persistStore(store) {
@@ -123,6 +133,10 @@ function getActiveCredentials() {
   return store.credentials[user.id];
 }
 
+function isHiddenServiceId(serviceId) {
+  return Boolean(store.hiddenServiceIds?.includes(serviceId));
+}
+
 function hasCredentialEntry(entry) {
   if (!entry) return false;
   return Boolean(
@@ -132,10 +146,15 @@ function hasCredentialEntry(entry) {
   );
 }
 
+function getServiceCardButtons() {
+  return Array.from(grid.querySelectorAll(".service-card[data-service-id]"));
+}
+
 function updateSavedIndicators() {
   const credentials = getActiveCredentials();
-  cards.forEach((card) => {
+  getServiceCardButtons().forEach((card) => {
     const id = card.dataset.serviceId;
+    if (isHiddenServiceId(id)) return;
     card.classList.toggle("service-card--saved", hasCredentialEntry(credentials[id]));
   });
 }
@@ -281,7 +300,192 @@ function renderUserList() {
 }
 
 function getService(id) {
-  return services[id];
+  if (services[id]) return services[id];
+  const match = store.customServices?.find((s) => s.id === id);
+  if (!match) return undefined;
+  return { name: match.name, icon: match.icon };
+}
+
+function createCustomServiceId() {
+  return `custom-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+function insertCustomServiceIntoGrid(service) {
+  const addTile = document.getElementById("add-service-btn")?.closest(".service-item");
+  if (!addTile) return;
+
+  const item = document.createElement("div");
+  item.className = "service-item";
+  item.setAttribute("role", "listitem");
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "service-card";
+  button.dataset.serviceId = service.id;
+  button.setAttribute("aria-label", `${service.name} credentials`);
+
+  const frame = document.createElement("span");
+  frame.className = "service-card__frame";
+
+  const img = document.createElement("img");
+  img.className = "service-card__icon";
+  img.src = service.icon;
+  img.alt = "";
+
+  frame.appendChild(img);
+  button.appendChild(frame);
+
+  const label = document.createElement("span");
+  label.className = "service-item__label";
+  label.textContent = service.name;
+
+  item.append(button, label);
+  addTile.parentElement.insertBefore(item, addTile);
+}
+
+function removeCustomServiceFromGrid(serviceId) {
+  const btn = grid.querySelector(`.service-card[data-service-id="${CSS.escape(serviceId)}"]`);
+  const item = btn?.closest(".service-item");
+  if (item) item.remove();
+}
+
+function applyHiddenServicesToGrid() {
+  (store.hiddenServiceIds ?? []).forEach((serviceId) => {
+    removeCustomServiceFromGrid(serviceId);
+  });
+}
+
+function renderCustomServices() {
+  // Remove existing custom entries (everything inserted before the Add tile that doesn't have a known static class)
+  const addTile = document.getElementById("add-service-btn")?.closest(".service-item");
+  if (!addTile) return;
+
+  const staticIds = new Set(Object.keys(services));
+  const items = Array.from(grid.querySelectorAll(".service-item"));
+  items.forEach((item) => {
+    const btn = item.querySelector(".service-card[data-service-id]");
+    if (!btn) return;
+    const id = btn.dataset.serviceId;
+    if (!staticIds.has(id)) item.remove();
+  });
+
+  (store.customServices ?? []).forEach((s) => insertCustomServiceIntoGrid(s));
+}
+
+function renderCustomServicesList() {
+  if (!appList) return;
+  const defaults = Object.entries(services).map(([id, s]) => ({
+    id,
+    name: s.name,
+    icon: s.icon,
+    kind: "default",
+  }));
+  const customs = (store.customServices ?? []).map((s) => ({ ...s, kind: "custom" }));
+  const hidden = new Set(store.hiddenServiceIds ?? []);
+  const list = [...defaults, ...customs].filter((s) => !hidden.has(s.id));
+
+  if (list.length === 0) {
+    appList.innerHTML = `<li class="app-list__empty">No apps to manage.</li>`;
+    return;
+  }
+
+  appList.replaceChildren(
+    ...list.map((service) => {
+      const li = document.createElement("li");
+      li.className = "app-list__item";
+      li.setAttribute("role", "listitem");
+
+      const left = document.createElement("div");
+      left.className = "app-list__left";
+
+      const img = document.createElement("img");
+      img.className = "app-list__icon";
+      img.src = service.icon || DEFAULT_CUSTOM_ICON;
+      img.alt = "";
+      img.width = 28;
+      img.height = 28;
+
+      const name = document.createElement("span");
+      name.className = "app-list__name";
+      name.textContent = service.name;
+
+      left.append(img, name);
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "btn btn--ghost btn--sm btn--danger";
+      del.textContent = "Remove";
+      del.dataset.removeServiceId = service.id;
+
+      li.append(left, del);
+      return li;
+    })
+  );
+}
+
+function deleteService(serviceId) {
+  const defaultService = services[serviceId];
+  const customService = store.customServices?.find((s) => s.id === serviceId);
+  const service = customService ?? defaultService;
+  if (!service) return;
+
+  if (!window.confirm(`Remove \"${service.name}\" from Password Wallet?`)) return;
+
+  if (customService) {
+    // Remove from custom services
+    store.customServices = (store.customServices ?? []).filter((s) => s.id !== serviceId);
+  } else {
+    // Hide default service
+    store.hiddenServiceIds = store.hiddenServiceIds ?? [];
+    if (!store.hiddenServiceIds.includes(serviceId)) {
+      store.hiddenServiceIds.push(serviceId);
+    }
+  }
+
+  // Remove any saved credentials for this service for ALL users
+  Object.keys(store.credentials ?? {}).forEach((userId) => {
+    if (store.credentials[userId]) {
+      delete store.credentials[userId][serviceId];
+    }
+  });
+
+  persistStore(store);
+  removeCustomServiceFromGrid(serviceId);
+  updateSavedIndicators();
+  renderCustomServicesList();
+
+  // If user had the credential modal open for this service, close it.
+  if (activeServiceId === serviceId && modal.open) {
+    closeModal();
+  }
+}
+
+async function addCustomServiceFromModal() {
+  const name = newServiceNameInput.value.trim();
+  if (!name) return;
+
+  const id = createCustomServiceId();
+  const icon = DEFAULT_CUSTOM_ICON;
+
+  const service = { id, name, icon };
+  store.customServices = store.customServices ?? [];
+  store.customServices.push(service);
+  persistStore(store);
+
+  insertCustomServiceIntoGrid(service);
+  updateSavedIndicators();
+  renderCustomServicesList();
+}
+
+function openAddServiceModal() {
+  newServiceNameInput.value = "";
+  addServiceModal.showModal();
+  newServiceNameInput.focus();
+  renderCustomServicesList();
+}
+
+function closeAddServiceModal() {
+  addServiceModal.close();
 }
 
 function refreshModalFields() {
@@ -334,8 +538,42 @@ addUserBtn.addEventListener("click", addUser);
 manageUsersBtn.addEventListener("click", openUsersModal);
 closeUsersModalBtn.addEventListener("click", () => usersModal.close());
 
-cards.forEach((card) => {
-  card.addEventListener("click", () => openModal(card.dataset.serviceId));
+grid.addEventListener("click", (event) => {
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+
+  const addBtn = target.closest("#add-service-btn");
+  if (addBtn) {
+    openAddServiceModal();
+    return;
+  }
+
+  const card = target.closest(".service-card[data-service-id]");
+  if (!card) return;
+  openModal(card.dataset.serviceId);
+});
+
+addServiceForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  try {
+    await addCustomServiceFromModal();
+    closeAddServiceModal();
+  } catch (err) {
+    window.alert("Could not add app icon. Try a smaller image.");
+  }
+});
+
+cancelAddServiceBtn.addEventListener("click", closeAddServiceModal);
+addServiceModal.addEventListener("cancel", () => {
+  // Esc key
+});
+
+appList?.addEventListener("click", (event) => {
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  const btn = target.closest("button[data-remove-service-id]");
+  if (!btn) return;
+  deleteService(btn.dataset.removeServiceId);
 });
 
 form.addEventListener("submit", (event) => {
@@ -384,4 +622,7 @@ modal.addEventListener("cancel", () => {
 });
 
 renderUserSelect();
+renderCustomServices();
+applyHiddenServicesToGrid();
+renderCustomServicesList();
 updateSavedIndicators();

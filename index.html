@@ -123,6 +123,13 @@
           </button>
           <span class="service-item__label">Valorant</span>
         </div>
+
+        <div class="service-item" role="listitem">
+          <button type="button" class="service-card service-card--add" id="add-service-btn" aria-label="Add app">
+            <span class="service-card__frame service-card__frame--add" aria-hidden="true">+</span>
+          </button>
+          <span class="service-item__label">Add</span>
+        </div>
       </div>
     </main>
 
@@ -202,6 +209,36 @@
           <button type="button" class="btn btn--primary" id="close-users-modal">Done</button>
         </footer>
       </div>
+    </dialog>
+
+    <dialog class="modal" id="add-service-modal" aria-labelledby="add-service-title">
+      <form method="dialog" class="modal__form" id="add-service-form">
+        <header class="modal__header modal__header--plain">
+          <h2 class="modal__title" id="add-service-title">Add app</h2>
+        </header>
+
+        <p class="modal__hint">
+          Add any app/service you want to store credentials for. (Reading installed apps from your phone requires native Android permissions; for now you can add them manually.)
+        </p>
+
+        <label class="field">
+          <span class="field__label">App name</span>
+          <input class="field__input" type="text" id="new-service-name" placeholder="e.g. WhatsApp" required />
+        </label>
+
+        <section class="manage-apps" aria-label="Manage custom apps">
+          <div class="manage-apps__header">
+            <h3 class="manage-apps__title">Your apps</h3>
+            <p class="manage-apps__subtitle">Remove apps you don’t want.</p>
+          </div>
+          <ul class="app-list" id="app-list" role="list"></ul>
+        </section>
+
+        <footer class="modal__actions">
+          <button type="button" class="btn btn--ghost" id="cancel-add-service">Cancel</button>
+          <button type="submit" class="btn btn--primary">Add</button>
+        </footer>
+      </form>
     </dialog>
 
     <script src="app.js"></script>

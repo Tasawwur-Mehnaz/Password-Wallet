@@ -10,10 +10,10 @@
   --bg: #7a9ad4;
   --title: rgba(255, 255, 195, 0.88);
   --card: #eff3c5;
-  --card-size: 60px;
-  --icon-size: 50px;
-  --gap-x: 31px;
-  --gap-y: 38px;
+  --card-size: clamp(52px, 14vw, 60px);
+  --icon-size: clamp(42px, 12vw, 50px);
+  --gap-x: clamp(14px, 5.5vw, 31px);
+  --gap-y: clamp(18px, 6vw, 38px);
   --radius-frame: 9px;
   --radius-card: 10px;
   --font-title: "Jersey 10", "Press Start 2P", monospace;
@@ -36,7 +36,7 @@ body {
 
 .wallet {
   width: min(100%, 444px);
-  padding: 17px 55px 62px;
+  padding: 17px clamp(18px, 10vw, 55px) 62px;
   background: var(--bg);
   border-radius: var(--radius-frame);
   overflow: hidden;
@@ -133,7 +133,7 @@ body {
 .service-item__label {
   width: 74px;
   max-width: 74px;
-  font-size: 14px;
+  font-size: clamp(12px, 3.2vw, 14px);
   font-weight: 700;
   line-height: 1.1;
   text-align: center;
@@ -192,6 +192,126 @@ body {
   max-width: none;
   object-fit: cover;
   pointer-events: none;
+}
+
+.service-card__frame--add {
+  display: grid;
+  place-items: center;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  color: #2c3e50;
+  font-size: clamp(26px, 8vw, 34px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.service-card--add {
+  padding-top: 5px;
+}
+
+.service-card--add:hover .service-card__frame--add {
+  filter: brightness(1.03);
+}
+
+.modal__hint {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  color: #4a5568;
+  line-height: 1.35;
+}
+
+.field__help {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.manage-apps {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.manage-apps__header {
+  margin-bottom: 10px;
+}
+
+.manage-apps__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.manage-apps__subtitle {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  color: #5a6a7a;
+}
+
+.app-list {
+  list-style: none;
+  margin: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.app-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.app-list__item:last-child {
+  border-bottom: none;
+}
+
+.app-list__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.app-list__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--card);
+  flex-shrink: 0;
+}
+
+.app-list__name {
+  font-weight: 700;
+  color: #2c3e50;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-list__empty {
+  padding: 10px 0 2px;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 440px) {
+  .wallet__grid {
+    grid-template-columns: repeat(3, var(--card-size));
+  }
+}
+
+@media (max-width: 320px) {
+  .wallet__grid {
+    grid-template-columns: repeat(2, var(--card-size));
+  }
 }
 
 /* Row 1 */
